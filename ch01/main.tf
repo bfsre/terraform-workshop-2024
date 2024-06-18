@@ -1,8 +1,3 @@
-locals {
-  project_name                = var.project_name
-  region                      = var.default_region
-  zone                        = var.default_zone
-}
 
 terraform {
   required_providers {
@@ -16,17 +11,19 @@ terraform {
 }
 
 provider "google" {
-  project = local.project_name
-  region  = local.region
-  zone    = local.zone
+  project = var.project_name
+  region  = var.default_region
+  zone    = var.default_zone
 }
 
-resource "google_project_service" "workshop-ch01" {
-  project = local.project_name
+resource "google_project_service" "compute" {
+  project = var.project_name
   service = "compute.googleapis.com"
 
   disable_on_destroy = false
 }
+
+
 
 
 
