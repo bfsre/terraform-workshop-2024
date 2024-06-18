@@ -21,5 +21,12 @@ provider "google" {
   zone    = local.zone
 }
 
+resource "google_project_service" "workshop-ch01" {
+  project = local.project_name
+  service = "compute.googleapis.com"
+
+  disable_on_destroy = false
+}
+
 
 
