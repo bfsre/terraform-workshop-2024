@@ -1,3 +1,7 @@
+locals {
+  my_instance_name = "cool_baby"
+}
+
 # Create VPC Network for building VM
 resource "google_compute_network" "workshop_network" {
   name                    = "my-network"
@@ -25,7 +29,7 @@ resource "google_compute_firewall" "workshop_ssh_rule" {
 
 # Create a VM in a custom VPC network and subnet
 resource "google_compute_instance" "workshop_custom_vm" {
-  name         = "my-vm-instance"
+  name         = local.my_instance_name
   tags         = [var.instance_tag]
   zone         = "us-central1-c"
   machine_type = var.machine_type #e2-small

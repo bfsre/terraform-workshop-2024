@@ -81,6 +81,13 @@ resource "aws_instance" "foo" {
 
 ---
 
+#### tfstate
+> Terraform must store state about your managed infrastructure and configuration. This state is used by Terraform to map real world resources to your configuration, keep track of metadata, and to improve performance for large infrastructures.
+
+> Terraform uses state to determine which changes to make to your infrastructure. Prior to any operation, Terraform does a refresh to update the state with the real infrastructure.
+
+---
+
 #### Module
 > A Terraform module is a set of Terraform configuration files in a single directory. Even a simple configuration consisting of a single directory with one or more .tf files is a module. 
 
@@ -95,8 +102,6 @@ modules
 ```
 
 * Terraform commands will only directly use the configuration files in one directory, which is usually the current working directory. However, your configuration can use module blocks to call modules in other directories. When Terraform encounters a module block, it loads and processes that module's configuration files.
-
-* 
 
 ##### 1. Variable
 [ref.](https://developer.hashicorp.com/terraform/language/values/variables)
@@ -113,3 +118,80 @@ If you're familiar with traditional programming languages, it can be useful to c
 ```
 
 * Local 可以做函式變換，但vars不行
+
+##### 2. Output
+```
+Output values have several uses:
+
+1. A child module can use outputs to expose a subset of its resource attributes to a parent module.
+
+2. A root module can use outputs to print certain values in the CLI output after running terraform apply.
+
+```
+
+##### 3. Local
+[ref.](https://developer.hashicorp.com/terraform/language/values/locals)
+```
+A local value assigns a name to an expression, so you can use the name multiple times within a module instead of repeating the expression.
+
+If you're familiar with traditional programming languages, it can be useful to compare Terraform modules to function definitions:
+
+1. Input variables are like function arguments.
+2. Output values are like function return values.
+3. Local values are like a function's temporary local variables.
+```
+
+* ```Expressions refer to or compute values within a configuration. The simplest expressions are just literal values, like "hello" or 5, but the Terraform language also allows more complex expressions such as references to data exported by resources, arithmetic, conditional evaluation, and a number of built-in functions.```
+
+##### 4. version
+[ref.](https://developer.hashicorp.com/terraform/tutorials/configuration-language/provider-versioning)
+
+```
+terraform {
+  required_providers {
+    google = {
+      source = "hashicorp/google"
+      version = "4.51.0"
+    }
+  }
+}
+```
+
+* When you initialize this configuration, Terraform will download: Version 4.51.0 of the google provider.
+
+* ```terraform.lock.hcl``` 跟上述的version有什麼不同？ 
+```
+When you initialize a Terraform configuration for the first time with Terraform 1.1 or later, Terraform will generate a new .terraform.lock.hcl file in the current working directory. 
+You should include the lock file in your version control repository to ensure that Terraform uses the same provider versions across your team and in ephemeral remote execution environments.
+
+Open the .terraform.lock.hcl file.
+```
+
+
+---
+
+##### 5. Variable
+[ref.](https://developer.hashicorp.com/terraform/language/values/variables)
+```
+Input variables let you customize aspects of Terraform modules without altering the module's own source code. This functionality allows you to share modules across different Terraform configurations, making your module composable and reusable.
+```
+
+
+---
+
+範例
+```
+locals {
+  # Ids for multiple sets of EC2 instances, merged together
+  instance_ids = concat(aws_instance.blue.*.id, aws_instance.green.*.id)
+}
+
+locals {
+  # Common tags tos be assigned to all resources
+  common_tags = {
+    Service = local.service_name
+    Owner   = local.owner
+  }
+}
+
+```
