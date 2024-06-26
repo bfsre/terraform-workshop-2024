@@ -1,5 +1,7 @@
 # Terragrunt Concept
 
+![alt text](<../course_img/terragrunt.png>)
+
 ## How to install Terragrunt ?
 
 Before installing Terragrunt, please ensure that `terraform` has been installed.
