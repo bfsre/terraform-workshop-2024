@@ -71,6 +71,13 @@ pkg install terragrunt
 
 ## How to use?
 
+first , modify `ch04/live/gcp/config.yaml`
+
+```
+project_id = <Your project id>
+region = <The default region is asia-east1, but you can change to any region you prefer>
+```
+
 if you only want to create network , please follow up steps
 
 ```
