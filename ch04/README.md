@@ -1,6 +1,17 @@
 # Terragrunt Concept
 
+Terragrunt is a flexible orchestration tool that allows Infrastructure as Code written in `OpenTofu`/`Terraform` to scale.
+
 ![alt text](<../course_img/terragrunt.png>)
+
+See the following for more info, including install instructions and complete documentation:
+
+- [Terragrunt Website](https://terragrunt.gruntwork.io/)
+- [Getting started with Terragrunt](https://terragrunt.gruntwork.io/docs/getting-started/quick-start/)
+- [Terragrunt Documentation](https://terragrunt.gruntwork.io/docs)
+- [Contributing to Terragrunt](https://terragrunt.gruntwork.io/docs/community/contributing)
+- [Commercial Support](https://gruntwork.io/support/)
+- [Terragrunt GitHub](https://github.com/gruntwork-io/terragrunt)
 
 ## How to install Terragrunt ?
 
